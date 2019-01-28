@@ -1,0 +1,15 @@
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">司机页面</view>
+        <view class="page__desc">设置司机状态</view>
+    </view>
+    
+        
+        <view class="weui-flex">
+            <view class="weui-flex__item"><view class="placeholder" bindtap='free'>可以接单</view></view>
+            <view class="weui-flex__item"><view class="placeholder" bindtap='nofree'>没空</view></view>
+             <view class="weui-flex__item"><view class="placeholder" bindtap='busy'>正在服务</view></view>
+            
+        </view>
+   
+</view>

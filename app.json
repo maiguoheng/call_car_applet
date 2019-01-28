@@ -1,0 +1,54 @@
+{
+  "pages":[
+    "pages/main_menu/main_menu",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/safari/safari",
+    "pages/location/location",
+    "pages/book_car/book_car",
+    "pages/book_ok/book_ok",
+    "pages/pay/pay",
+    "pages/cancel_ok/cancel_ok",
+    "pages/user_main/user_main",
+    "pages/bill/bill",
+    "pages/driver_main/driver_main",
+    "pages/about/about"
+    
+    
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "window":{
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "逸泉地铁接送助手",
+  "navigationBarBackgroundColor": "#f8f8f8",
+  "backgroundColor": "#f8f8f8"
+  },
+
+  
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+  
+    "list": [
+      {
+        "selectedIconPath": "pages/images/出租车.png",
+        "iconPath": "pages/images/出租车.png",
+        "pagePath": "pages/main_menu/main_menu",
+        "text": "叫车"
+      },
+      {
+        "selectedIconPath": "pages/images/用户.png",
+        "iconPath": "pages/images/用户.png",
+        "pagePath": "pages/user_main/user_main",
+        "text": "用户"
+      }
+    ]
+  }
+  
+
+
+}

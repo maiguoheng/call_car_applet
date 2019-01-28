@@ -1,0 +1,75 @@
+<view class="page">
+    <!--页头-->
+    <view class="page__hd"></view>
+    <!--主体-->
+<view>
+<view class="error-banner" animation="{{animationData}}">
+  <label class="error-label">{{errorMessage}}</label>
+</view>
+<view class="banner">
+  <image class="img-banner" src="{{logo}}" mode="{{mode}}"></image>
+</view>
+<view class="main">
+  <form bindsubmit="formSubmit" bindreset="formReset" report-submit='true'>
+    <view class="info-area">
+      <view class="section">
+        <view class="flex-wrp" style="display: flex;flex-direction:row;">
+          <view class="flex-item">
+            <label class="info-title" style="display: flex;flex-direction:row;">姓名：</label>
+          </view>
+          <view class="flex-item">
+            <input class="input" name="input_name" placeholder="please input here" type="text" auto-focus required confirm-type="done" />
+          </view>
+        </view>
+      </view>
+
+      <view class="section">
+        <view class="flex-wrp" style="display: flex;flex-direction:row;">
+          <view class="flex-item">
+            <label class="info-title">电话：</label>
+          </view>
+          <view class="flex-item">
+            <input class="input" name="input_phone" placeholder="please input here" type="number" auto-focus required maxlength="11" confirm-type="done" />
+          </view>
+        </view>
+        
+      </view>
+
+      <view class="section">
+        <view class="flex-wrp" style="display: flex;flex-direction:row;">
+          <view class="flex-item">
+            <label class="info-title">目的地：</label>
+          </view>
+          <view class="flex-item">
+            <input class="input" name="input_direction" placeholder="please input here" type="text" auto-focus required maxlength="11" confirm-type="done" />
+          </view>
+        </view>
+        
+      </view>
+
+      
+      
+
+      
+
+      <view class="section">
+        <label class="info-title">地点：</label>
+        <label>赤草站靠逸泉的出口</label>
+      </view>
+    </view>
+
+    <view class="btn-area flex-wrp">
+      <button class="button" formType="submit" type="primary">提交</button>
+      <button class="button reset" formType="reset">重置</button>
+    </view>
+  </form>
+</view>
+
+
+</view>
+
+    <!--没有页脚-->
+
+    
+</view>
+

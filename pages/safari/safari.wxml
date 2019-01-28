@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<view class="container">
+ <!-- canvas.wxml -->
+ <canvas style="width: 300px; height: 300px;" canvas-id="compassCanvas"></canvas>
+ <view class="usermotto">
+   <text class="angle_text">{{angle}}</text>
+ </view>
+</view>

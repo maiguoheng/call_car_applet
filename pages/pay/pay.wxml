@@ -1,0 +1,13 @@
+<!--pages/pay/pay.wxml-->
+<view class="weui-msg__text-area">
+            
+            <view class="weui-msg__desc">由于无法直接使用微信支付，请点击保存到相册将付款码保存到相册再到微信进行扫一扫支付<navigator url="" class="weui-msg__link"></navigator></view>
+        </view>
+        <button class="weui-btn"  bindtap='to_pay'>点击保存到相册</button>
+         <button class="weui-btn"  bindtap='to_main_menu'>返回主界面</button>
+<image src="../images/wxzf.jpg" mode="widthFix"  
+    data-src="../images/wxzf.jpg" 
+    ></image>
+
+   
+
