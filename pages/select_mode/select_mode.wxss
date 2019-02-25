@@ -1,0 +1,11 @@
+/* pages/select_mode/select_mode.wxss */
+
+
+page {
+  height: 100%;
+}
+
+.for_font{
+  font-size: 20px 
+
+}

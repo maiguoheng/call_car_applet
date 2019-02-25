@@ -1,0 +1,11 @@
+<view class='container'>
+
+  <view>
+    <text class='for_font'>请选择你的身份</text>
+    <button class="weui-btn" type="default" plain="true" bindtap="goToDriver"> 司机</button>
+    <button class="weui-btn" type="default" plain="true" bindtap="goToCustomer"> 乘客</button>
+  </view>
+
+  <text class='for_font'>欢迎你,{{nickName}}</text>
+
+</view>

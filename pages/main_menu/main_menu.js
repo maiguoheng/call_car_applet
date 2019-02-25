@@ -3,22 +3,24 @@ const Bmob = require('../../utils/bmob.js');
 var common = require('../../utils/common.js')
 var util = require('../../utils/util.js');
 var time = util.formatTime(new Date())
+var canbook = false;
+var id_timeTask;
 var currentUser = Bmob.User.current();
+var onload_this
 Page({
   data: {
+    free_driver: '',
     motto: '欢迎使用逸泉地铁接送助手',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    can_book: false,
+    current_status: '',
   },
-  //事件处理函数
-  bindViewTap: function () {
-    wx.navigateTo({
-      url: '../location/location'
-    })
-  },
-  
   onLoad: function () {
+    onload_this = this
+    app.globalData.userInfo = wx.getStorageSync("userInfo");
+    console.log(app.globalData.userInfo)
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -44,176 +46,148 @@ Page({
           })
         }
       })
+
+
     }
-  },
-  getUserInfo: function (e) {
-    wx.showLoading({
-      title: '请稍等',
+     wx.showLoading({
+      title: '正在为您查询司机信息……',
     })
-var free_driver_count;
-var busy_driver_count;
+    this.check_driver()
+
+  },
+
+  check_driver: function() {
+    //查询司机状态信息,0不在线,1有空，2正在服务
+    // wx.showLoading({
+    //   title: '正在为您查询司机信息……',
+    // })
+
+    var free_driver_count;
+    var busy_driver_count;
     var that = this;
     var Diary = Bmob.Object.extend("driver");
     var query = new Bmob.Query(Diary);
     query.equalTo("driver_status", 1);
     // 查询所有数据
     query.find({
-      success: function (results) {
+      success: function(results) {
 
 
-        free_driver_count=results.length
-        console.log("共查询到 " + results.length + " 条记录");
+        free_driver_count = results.length
+        console.log("共查询到空闲司机 " + free_driver_count + " 条记录");
         // 循环处理查询到的数据
         query = new Bmob.Query(Diary);
         query.equalTo("driver_status", 2);
         // 查询所有数据
         query.find({
-          success: function (results) {
-
+          success: function(results) {
+            onload_this.setData({
+              free_driver:free_driver_count
+            })
 
             busy_driver_count = results.length
-            console.log("共查询到 " + results.length + " 条记录");
+            console.log("共查询到接单中司机  " + results.length + " 条记录");
 
             wx.hideLoading()
             // 循环处理查询到的数据
             if (busy_driver_count != 0 || free_driver_count != 0) {
-              wx.showModal({
-                content: '有司机空闲或正在服务，可以进行预约',
-                showCancel: false,
-                success: function (res) {
-                  if (res.confirm) {
-                    console.log('用户点击确定')
-                  }
-                }
-              });
+              canbook = true
 
-              console.log(e)
-              app.globalData.userInfo = e.detail.userInfo
-              that.setData({
-                userInfo: e.detail.userInfo,
-                hasUserInfo: true
+              onload_this.setData({
+                current_status: '有司机空闲或正在服务，可以进行预约'
               })
-            }
-            else {
-              wx.showModal({
-                content: '现在没有司机准备接单，请稍后再试',
-                showCancel: false,
-                success: function (res) {
-                  if (res.confirm) {
-                    console.log('用户点击确定')
-                  }
-                }
-              });
+
+              // wx.showModal({
+              //   content: '有司机空闲或正在服务，可以进行预约',
+              //   showCancel: false,
+              //   success: function (res) {
+              //     if (res.confirm) {
+              //       console.log('用户点击确定')
+              //     }
+              //   }
+              // });
+
+              // console.log(e)
+              // console.log(app.globalData.userInfo)
+              // app.globalData.userInfo = e.detail.userInfo
+              // that.setData({
+              //   userInfo: e.detail.userInfo,
+              //   hasUserInfo: true
+              // })
+            } else {
+              canbook = false
+              onload_this.setData({
+                current_status: '现在没有司机准备接单，请稍后再试'
+              })
+              // wx.showModal({
+              //   content: '现在没有司机准备接单，请稍后再试',
+              //   showCancel: false,
+              //   success: function (res) {
+              //     if (res.confirm) {
+              //       console.log('用户点击确定')
+              //     }
+              //   }
+              // });
 
             }
 
           },
-          error: function (error) {
+          error: function(error) {
             console.log("查询失败: " + error.code + " " + error.message);
           }
         });
-       
+
       },
-      error: function (error) {
+      error: function(error) {
         console.log("查询失败: " + error.code + " " + error.message);
       }
     });
-    // query = new Bmob.Query(Diary);
-    // query.equalTo("driver_status", 2);
-    // // 查询所有数据
-    // query.find({
-    //   success: function (results) {
 
+    
 
-    //     busy_driver_count = results.length
-    //     console.log("共查询到 " + results.length + " 条记录");
-    //     // 循环处理查询到的数据
-    //     if (busy_driver_count != 0 || free_driver_count != 0) {
-    //       wx.showModal({
-    //         content: '有司机空闲或正在服务，可以进行预约',
-    //         showCancel: false,
-    //         success: function (res) {
-    //           if (res.confirm) {
-    //             console.log('用户点击确定')
-    //           }
-    //         }
-    //       });
+  },
+  onHide: function(){
+     clearInterval(id_timeTask)
+  },
+  onUnload:function(){
+    clearInterval(id_timeTask)
 
-    //       console.log(e)
-    //       app.globalData.userInfo = e.detail.userInfo
-    //       this.setData({
-    //         userInfo: e.detail.userInfo,
-    //         hasUserInfo: true
-    //       })
-    //     }
-    //     else {
-    //       wx.showModal({
-    //         content: '现在没有司机准备接单，请稍后再试',
-    //         showCancel: false,
-    //         success: function (res) {
-    //           if (res.confirm) {
-    //             console.log('用户点击确定')
-    //           }
-    //         }
-    //       });
+  },
+  onShow :function(){
+    id_timeTask = setInterval(this.check_driver, 20000)
 
-    //     }
-
-    //   },
-    //   error: function (error) {
-    //     console.log("查询失败: " + error.code + " " + error.message);
-    //   }
-    // });
-    console.log(busy_driver_count)
-    console.log(free_driver_count)
-//     if (busy_driver_count!=0||free_driver_count!=0)
-// {
-//       wx.showModal({
-//         content: '有司机空闲或正在服务，可以进行预约',
-//         showCancel: false,
-//         success: function (res) {
-//           if (res.confirm) {
-//             console.log('用户点击确定')
-//           }
-//         }
-//       });
-     
-//     console.log(e)
-//     app.globalData.userInfo = e.detail.userInfo
-//     this.setData({
-//       userInfo: e.detail.userInfo,
-//       hasUserInfo: true
-//     })
-// }
-// else{
-//       wx.showModal({
-//         content: '现在没有司机准备接单，请稍后再试',
-//         showCancel: false,
-//         success: function (res) {
-//           if (res.confirm) {
-//             console.log('用户点击确定')
-//           }
-//         }
-//       });
-     
-// }
+  },
+  //事件处理函数
+  bindViewTap: function () {
+    wx.navigateTo({
+      url: '../location/location'
+    })
   },
 
-  begin_to_book:function(e){
+ 
+
+  begin_to_book: function(e) {
     console.log(e)
-this.setData({
-  motto:"ok"
+    onload_this.check_driver()
+    if (canbook) {
+      wx.navigateTo({
+        url: '../book_car/book_car'
+      })
+    } else {
+      wx.showModal({
+        content: '现在没有司机准备接单，请稍后再试',
+        showCancel: false,
+        success: function(res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          }
+        }
+      });
+    }
+  },
 
-  
-})
 
 
 
-    wx.navigateTo({
-      url: '../book_car/book_car'
-    })
-  }
 
-  
-  
 })

@@ -13,3 +13,7 @@
         </view>
    
 </view>
+
+<import src="/templates/tabbar/tabbar.wxml" />
+<template is="tabbar" data="{{tabbar}}" />
+

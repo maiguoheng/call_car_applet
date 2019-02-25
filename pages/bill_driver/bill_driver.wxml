@@ -1,0 +1,23 @@
+
+<view wx:for="{{bills}}" wx:for-index="idx" wx:key="item">
+  <view bindtap="goToBillAccess" class="item-tree" data-index="{{idx}}">
+    <view class="item-h">
+      <view class="item-v">
+        <view class="im-h">
+          <image class="im-type" src="{{item.typeId==0?'../../images/system/income.png':'../../images/system/outcome.png'}}"></image>
+
+        </view>
+        <text class="t-time">订单号：{{item.objectId}}</text>
+        <text class="t-time">创建时间：{{item.createdAt}}</text>
+        <text class="t-time">目的地:{{item.direction}}</text>
+      </view>
+      <text class="{{item.typeId==0?'t-mon':'t-monO'}}">¥ 2元</text>
+    </view>
+  </view>
+  <view class="line"></view>
+</view>
+<view class="mar">
+<import src="/templates/tabbar/tabbar.wxml" />
+<template is="tabbar" data="{{tabbar}}" />
+</view>
+

@@ -1,0 +1,36 @@
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">订单详情</view>
+        <view class="page__desc"> 请选择是否接单</view>
+    </view>
+    <view class="page__bd">
+        <view class="weui-form-preview">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__label">接单收入</view>
+                <view class="weui-form-preview__value_in-hd">¥2.00</view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">目的地</view>
+                    <view class="weui-form-preview__value">{{detail.direction}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">乘客姓名</view>
+                    <view class="weui-form-preview__value">{{detail.caller_name}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">接送时间</view>
+                    <view class="weui-form-preview__value">{{detail.drive_time}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">订单编号</view>
+                    <view class="weui-form-preview__value">{{detail.objectId}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__ft">
+                <navigator url='../bill_driver/bill_driver' class="weui-form-preview__btn weui-form-preview__btn_default" open-type="redirect" hover-class="weui-form-preview__btn_active">返回</navigator>
+                <navigator url='../bill_ok/bill_ok'bindtap="access" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">接单</navigator>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,7 +1,15 @@
 {
-  "pages":[
+  "pages": [
+    "pages/permission/permission",
+    "pages/main_menu_driver/main_menu_driver",
+    "pages/select_mode/select_mode",
     "pages/main_menu/main_menu",
+    "pages/bill_ok/bill_ok",
+    
+    "pages/user_main_driver/user_main_driver",
     "pages/index/index",
+    "pages/bill_driver/bill_driver",
+    "pages/bill_access/bill_access",
     "pages/logs/logs",
     "pages/safari/safari",
     "pages/location/location",
@@ -13,26 +21,21 @@
     "pages/bill/bill",
     "pages/driver_main/driver_main",
     "pages/about/about"
-    
-    
   ],
   "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
   },
-  "window":{
-  "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "逸泉地铁接送助手",
-  "navigationBarBackgroundColor": "#f8f8f8",
-  "backgroundColor": "#f8f8f8"
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "逸泉地铁接送助手",
+    "navigationBarBackgroundColor": "#f8f8f8",
+    "backgroundColor": "#f8f8f8"
   },
-
-  
   "tabBar": {
     "color": "#a9b7b7",
     "selectedColor": "#11cd6e",
-  
     "list": [
       {
         "selectedIconPath": "pages/images/出租车.png",
@@ -48,7 +51,4 @@
       }
     ]
   }
-  
-
-
 }

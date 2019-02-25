@@ -6,6 +6,7 @@ var common = require('../../utils/common.js')
 var util = require('../../utils/util.js');
 var time = util.formatTime(new Date())
 var currentUser = Bmob.User.current();
+var that
 Page({
 
 
@@ -15,6 +16,7 @@ Page({
   data: {
     input_name: '',
     errorMessage: '',
+    time: ''
 
   },
 
@@ -22,23 +24,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
-
-
-
-
-
-
-
-
-
-    var that = this
+    that = this
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function(userInfo) {
       //更新数据
       that.setData({
+        time: new Date().getHours() + ':' + new Date().getMinutes(),
         userInfo: userInfo
       })
+    })
+    console.log((new Date()).getHours())
+
+  },
+
+  bindTimeChange: function (e) {
+    this.setData({
+      time: e.detail.value
     })
   },
 
@@ -53,6 +54,8 @@ Page({
     console.log('form发生了submit事件，携带数据为：Name: ', e.detail.value.input_name)
     console.log('form发生了submit事件，携带数据为：Phone: ', e.detail.value.input_phone)
     console.log('form发生了submit事件，携带数据为：Attend: ', e.detail.value.input_attend)
+    console.log('form发生了submit事件，携带数据为：pick_time: ', that.data.time)
+
     
 
     var _this = this
@@ -74,11 +77,14 @@ Page({
     var query=new Call_car();
     
     query.set("caller_id", currentUser.attributes.userData.openid)
-    
-    query.set("driver_id", "oVUTX5btTNJ1cDcPpaalmlxmtXk8")
+    // 当前订单状态。0：未接单； 1：已接单（未完成) ； 2：已完成
+    query.set("status",0)
+    // query.set("driver_id", "oVUTX5btTNJ1cDcPpaalmlxmtXk8")
     query.set("caller_name", e.detail.value.input_name)
     query.set("direction", e.detail.value.input_direction)
     query.set("caller_phone", e.detail.value.input_phone)
+    query.set("pick_time",that.data.time)
+    query.set("status",0)
     query.save(null, {
       success: function (result) {
         console.log('create success!');
@@ -139,12 +145,6 @@ Page({
         common.showTip('失败' + err)
         console.log(err)
       });
-
-
-    
-
-
-
 
   },
   showErrorMessage: function(message) {

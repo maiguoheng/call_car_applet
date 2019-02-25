@@ -1,15 +1,30 @@
 <!--index.wxml-->
+
 <view class="container">
   <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 查看是否有司机空闲 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    <!-- <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></imag e> -->
+    <block>
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+
     </block>
+    <button class="weui-btn" type="default" plain="true" bindtap="begin_to_book"> 开始预约车辆</button>
+    <text class="diiver_status">当前在线司机:</text>
+    <text class="blue">{{free_driver}}      </text>
   </view>
-  <view class="usermotto">
+  <!-- <view>
+    <text>当前在线司机:</text>
+    <text class="driver_status">
+     {{free_driver}}      </text>
+
+  </view> -->
+
+
+
+
+  <view>
     <text class="user-motto">{{motto}}</text>
   </view>
-  <button wx:if="{{hasUserInfo && canIUse}}" open-type="begin_to_book" bindgetuserinfo="begin_to_book"
-  bindtap="begin_to_book"> 开始预约车辆 </button>
+
 </view>

@@ -31,10 +31,8 @@ Page({
     // 查询所有数据
     query.find({
       success: function (results) {
-
-
-       
         console.log("共查询到 " + results.length + " 条记录");
+        results.reverse()//改变排序
         // 循环处理查询到的数据
        that.setData({
          bills: results
